@@ -1,0 +1,21 @@
+---
+description: Playbook SDD — fluxo mínimo e economia de requests
+alwaysApply: true
+---
+
+# SDD playbook
+
+Funcionalidades relevantes: specify → plan → tasks → implement (um chat).
+
+## Economia
+
+- Uma feature = um chat; retomar com “continue a partir de T0xx”.
+- Entre fases: humano edita `spec.md` / `plan.md` / `tasks.md`; não rerodar comando por nitpick.
+- Pular por padrão: clarify, analyze, checklist (salvo risco alto).
+- Gaps pós-implement: converge uma vez, depois implement — não novo specify.
+- Feature grande: preferir 2 specs (P1 e P2) a um tasks.md gigante.
+
+## Escopo
+
+- Não expandir além de `spec.md`.
+- Bugfix/copy/refactor pontual: prompt direto, sem ciclo SDD completo.

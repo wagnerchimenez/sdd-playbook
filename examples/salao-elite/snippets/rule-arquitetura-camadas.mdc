@@ -1,0 +1,21 @@
+---
+description: Arquitetura em camadas Laravel — Controllers finos e site/src
+globs: site/**/*.php
+alwaysApply: false
+---
+
+# Arquitetura em Camadas
+
+```
+Inertia/React → Controllers → site/src/{Contexto}/Aplicacao (*Handler)
+                              site/src/{Contexto}/Dominio
+                              site/src/{Contexto}/Infraestrutura
+```
+
+## Regras
+
+- Controllers HTTP não concentram regra de negócio — validam, chamam handler, respondem.
+- Negócio novo em `site/src/{Contexto}/`.
+- Eloquent em `app/Models/`; adapters em Infraestrutura quando houver porta no Domínio.
+- Preferir Handler por ação: `ConfirmarAgendamentoHandler`.
+- UI (React) não acessa repositórios.

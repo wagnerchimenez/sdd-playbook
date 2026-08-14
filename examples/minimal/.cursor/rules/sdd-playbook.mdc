@@ -1,0 +1,13 @@
+---
+description: Playbook SDD — fluxo mínimo
+alwaysApply: true
+---
+
+# SDD playbook
+
+specify → plan → tasks → implement (um chat).
+
+- Entre fases: editar markdown; não rerodar por nitpick.
+- Pular: clarify, analyze, checklist (salvo risco alto).
+- Gaps: converge uma vez, depois implement.
+- Não expandir além de `spec.md`.
