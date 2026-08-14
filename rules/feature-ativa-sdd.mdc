@@ -1,0 +1,12 @@
+---
+description: Feature Spec Kit ativa via .specify/feature.json
+alwaysApply: true
+---
+
+# Feature ativa
+
+1. Ler `.specify/feature.json` → `feature_directory`.
+2. Artefatos: `spec.md`, `plan.md`, `tasks.md` (e anexos do plan) nessa pasta.
+3. Em implementação: seguir `tasks.md`; marcar `[X]` ao concluir; paths conforme `plan.md`.
+4. Não expandir escopo além de `spec.md`.
+5. Se `feature_directory` estiver vazio ou a pasta não existir: não inventar feature — pedir `/speckit-specify` ou corrigir o JSON.

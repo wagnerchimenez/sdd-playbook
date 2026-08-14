@@ -1,0 +1,82 @@
+---
+description: >-
+  Receita SDD completa com economia máxima de IA (Spec Kit): setup do zero,
+  specify, plan, tasks, implement por etapas. Use when the user asks about
+  Spec-Driven Development, Spec Kit, economia de requests/tokens, como rodar
+  specify/plan/tasks/implement, ou o fluxo de feature no Cursor.
+alwaysApply: false
+---
+
+# Receita SDD — economia máxima
+
+Siga esta receita. Detalhes longos estão no README do repo `sdd-playbook`; aqui é o essencial operacional.
+
+## Etapa 0 (uma vez no projeto)
+
+1. `uv tool install specify-cli` → `specify init . --ai cursor-agent`
+2. `/speckit-constitution` com princípios do produto
+3. Copiar rules: `sdd-playbook.mdc`, `feature-ativa-sdd.mdc`, `padroes-gerais.mdc` (+ esta sob demanda)
+4. Ajustar `.specify/templates/plan-template.md` e `padroes-gerais.mdc` à stack
+5. Skill de API externa só se necessário (links + checklist; sem OpenAPI inteira)
+
+## Etapa 1 — Texto do specify (chat Plan, separado)
+
+- Conversa até fechar prompt (quem, o quê, aceite, fora de escopo).
+- Não rode `/speckit-specify` neste chat.
+- Feche o chat de Plan depois.
+
+## Etapa 2 — Specify (chat novo)
+
+```text
+/speckit-specify
+<texto final>
+```
+
+Ajuste nitpick em `spec.md` no editor. Não re-specify por cosmético.
+Pular clarify por padrão (exceto pagamento/permissão/risco alto + ambiguidade).
+
+## Etapa 3 — Plan (mesmo chat da feature)
+
+```text
+/speckit-plan
+```
+
+Sem texto longo. Ajuste `plan.md` no editor.
+
+## Etapa 4 — Tasks
+
+```text
+/speckit-tasks
+```
+
+Corte MVP no `tasks.md` antes do implement. Pular analyze/checklist salvo risco alto.
+
+## Etapa 5 — Implement (economia)
+
+Preferir por etapas:
+
+```text
+/speckit-implement
+Só até o checkpoint da US atual. Sequencial, sem paralelo.
+PARE e espere autorização. Marque [X]. Não reexplore [X]. Não expandir além de spec.md.
+```
+
+Retomar: `Autorizado: USn. Continue a partir de T0xx. Sequencial. Pare no checkpoint.`
+
+Se for fechar tudo de uma vez: uma mensagem sequencial T001…fim (menos overhead que N retomadas).
+
+Gaps: `/speckit-converge` uma vez → implement. Não novo specify.
+
+## Etapa 6
+
+Testar → PR Git Flow → deploy se preciso → próxima feature em **chat novo**.
+
+## Economia
+
+| Faça | Evite |
+|------|--------|
+| Plan chat só para o texto | Specify no chat de brainstorm |
+| 1 chat por feature no ciclo | Novo chat a cada task |
+| Editar markdown | Re-rodar comando por nitpick |
+| Sequencial + pare por US | Paralelo “para economizar” |
+| Skill de API sob demanda | Colar OpenAPI no specify |

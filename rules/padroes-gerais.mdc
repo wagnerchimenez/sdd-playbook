@@ -1,0 +1,60 @@
+---
+description: Padrões gerais do projeto — idioma, Git Flow, commits
+alwaysApply: true
+---
+
+# Padrões gerais
+
+<!-- AJUSTE: renomeie a seção e preencha a stack real do produto. -->
+
+## Idioma
+
+- Responder em português brasileiro.
+- Mensagens de erro, rótulos de UI e documentação em português.
+
+## Layout do código
+
+<!-- AJUSTE: ex. Aplicação em `site/` (Laravel + Docker Compose + Makefile). -->
+
+- Raiz da aplicação: `<!-- AJUSTE: caminho, ex. site/ -->`
+
+## Nomenclatura
+
+<!-- AJUSTE: se o domínio for PT-BR, mantenha; senão adapte. -->
+
+- Domínio em **português** quando o produto for BR: classes, métodos, tabelas, colunas.
+- Inglês só o técnico do framework (`Controller`, `Middleware`, `timestamps`, …).
+- Métodos camelCase; testes com prefixo claro (`test...`).
+- Sem abreviações (`repositorio`, não `repo`).
+
+## Branches (Git Flow)
+
+Integração em `main` só via PR. Nomes:
+
+| Prefixo | Uso |
+|---|-----|
+| `feature/<slug>` | nova funcionalidade |
+| `bugfix/<slug>` | correção não urgente |
+| `hotfix/<slug>` | correção urgente a partir de `main` |
+| `release/<versao>` | preparação de release |
+
+- Slug em kebab-case e significativo.
+- Criar a partir de `main` atualizada.
+- Após merge: apagar branch remota e local.
+- Proibido: `cursor/`, `copilot/`, `agent/`, slugs vagos (`feature/update`).
+
+## Commits
+
+Conventional Commits em português: `feat`, `fix`, `refactor`, `perf`, `docs`, `build`, `chore`, `test`.
+
+### Proibido (commits e PRs)
+
+- `Co-authored-by: Cursor` / `cursoragent` / e-mail `@cursor.com`
+- `Made-with: Cursor` ou equivalentes
+- Atribuição de ferramenta/IA no corpo do PR
+
+## Regras
+
+- Não commitar segredos (`.env`, credenciais).
+- Só criar commit quando o usuário pedir explicitamente.
+<!-- AJUSTE: regras de banco/produção específicas do produto. -->
