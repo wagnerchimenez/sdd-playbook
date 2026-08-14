@@ -1,0 +1,31 @@
+---
+description: Stack e layout do produto — preencher após copiar
+alwaysApply: true
+---
+
+# Padrões de stack
+
+Substitua os placeholders pela stack real. Sem placeholders preenchidos, o agente não inventa layout nem stack.
+
+## Layout
+
+- Raiz da aplicação: `<!-- PREENCHER: caminho, ex. app/ ou . -->`
+- Monorepo / pacotes relevantes: `<!-- PREENCHER: ou N/A -->`
+
+## Stack
+
+- Linguagem / runtime: `<!-- PREENCHER -->`
+- Framework: `<!-- PREENCHER -->`
+- Testes (comando e pasta): `<!-- PREENCHER -->`
+- Persistência / fila / cache (se houver): `<!-- PREENCHER -->`
+
+## Nomenclatura
+
+- Idioma do domínio (classes, métodos, tabelas): `<!-- PREENCHER: pt | en | misto -->`
+- Inglês só o técnico do framework/runtime: `<!-- PREENCHER: exemplos locais -->`
+- Convenções de métodos / testes: `<!-- PREENCHER -->`
+- Abreviações: `<!-- PREENCHER: ex. proibido abreviar -->`
+
+## Regras locais
+
+`<!-- PREENCHER: banco, deploy, ambientes, restrições do produto. Remova esta linha se não houver. -->`

@@ -9,14 +9,16 @@ alwaysApply: false
 
 # Receita SDD — economia máxima
 
-Siga esta receita. Detalhes longos estão no README do repo `sdd-playbook`; aqui é o essencial operacional.
+Siga esta receita. O essencial operacional está aqui; as rules alwaysApply cobrem o dia a dia.
 
 ## Etapa 0 (uma vez no projeto)
 
-1. `uv tool install specify-cli` → `specify init . --ai cursor-agent`
+Checklist no produto (não repetir a cada feature):
+
+1. Spec Kit instalado: `specify init . --ai cursor-agent` (ou equivalente já feito)
 2. `/speckit-constitution` com princípios do produto
-3. Copiar rules: `sdd-playbook.mdc`, `feature-ativa-sdd.mdc`, `padroes-gerais.mdc` (+ esta sob demanda)
-4. Ajustar `.specify/templates/plan-template.md` e `padroes-gerais.mdc` à stack
+3. Rules em `.cursor/rules/`: `sdd-playbook`, `feature-ativa-sdd`, `padroes-gerais`, `padroes-stack` (+ esta sob demanda)
+4. `padroes-stack.mdc` preenchido; `.specify/templates/plan-template.md` alinhado à stack
 5. Skill de API externa só se necessário (links + checklist; sem OpenAPI inteira)
 
 ## Etapa 1 — Texto do specify (chat Plan, separado)

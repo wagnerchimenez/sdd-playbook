@@ -1,31 +1,16 @@
 ---
-description: Padrões gerais do projeto — idioma, Git Flow, commits
+description: Padrões gerais — idioma, Git Flow, commits
 alwaysApply: true
 ---
 
 # Padrões gerais
 
-<!-- AJUSTE: renomeie a seção e preencha a stack real do produto. -->
+Stack, layout e nomenclatura de domínio: rule `padroes-stack`.
 
 ## Idioma
 
 - Responder em português brasileiro.
 - Mensagens de erro, rótulos de UI e documentação em português.
-
-## Layout do código
-
-<!-- AJUSTE: ex. Aplicação em `site/` (Laravel + Docker Compose + Makefile). -->
-
-- Raiz da aplicação: `<!-- AJUSTE: caminho, ex. site/ -->`
-
-## Nomenclatura
-
-<!-- AJUSTE: se o domínio for PT-BR, mantenha; senão adapte. -->
-
-- Domínio em **português** quando o produto for BR: classes, métodos, tabelas, colunas.
-- Inglês só o técnico do framework (`Controller`, `Middleware`, `timestamps`, …).
-- Métodos camelCase; testes com prefixo claro (`test...`).
-- Sem abreviações (`repositorio`, não `repo`).
 
 ## Branches (Git Flow)
 
@@ -57,4 +42,3 @@ Conventional Commits em português: `feat`, `fix`, `refactor`, `perf`, `docs`, `
 
 - Não commitar segredos (`.env`, credenciais).
 - Só criar commit quando o usuário pedir explicitamente.
-<!-- AJUSTE: regras de banco/produção específicas do produto. -->

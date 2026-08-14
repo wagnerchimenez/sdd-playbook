@@ -6,7 +6,7 @@ alwaysApply: true
 # SDD playbook
 
 Funcionalidades relevantes: specify → plan → tasks → implement (um chat da feature).
-Receita detalhada: rule `sdd-economia-receita` (sob demanda) ou README do playbook SDD.
+Receita detalhada: rule `sdd-economia-receita` (sob demanda).
 
 ## Economia
 

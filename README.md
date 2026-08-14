@@ -2,7 +2,9 @@
 
 Receita de bolo: Spec-Driven Development (Spec Kit + Cursor) do **projeto zero** até a **feature no código**, gastando o mínimo de IA.
 
-Rules prontas para copiar: pasta [`rules/`](rules/).
+Este repositório é um **kit de cópia**. Depois de copiar as rules para o produto, elas são a fonte da verdade — o playbook não precisa ficar aberto.
+
+Rules prontas: pasta [`rules/`](rules/).
 
 ---
 
@@ -77,7 +79,7 @@ Resultado: `.specify/memory/constitution.md` alinhado ao produto. Ajuste no edit
 
 ### 0.5 Copiar as rules fundamentais
 
-Deste playbook para o **produto**:
+Deste kit para o **produto**:
 
 ```bash
 mkdir -p .cursor/rules
@@ -88,10 +90,13 @@ cp /caminho/para/sdd-playbook/rules/*.mdc .cursor/rules/
 |---------|-------------|--------|
 | `sdd-playbook.mdc` | sim | Fluxo curto + economia |
 | `feature-ativa-sdd.mdc` | sim | Lê `feature.json`; segue `tasks.md` |
-| `padroes-gerais.mdc` | sim | Idioma, Git Flow, commits — **edite** a stack |
+| `padroes-gerais.mdc` | sim | Idioma, Git Flow, commits |
+| `padroes-stack.mdc` | sim | Layout e stack — **preencha** |
 | `sdd-economia-receita.mdc` | não | Receita completa sob demanda (não infla todo chat) |
 
-Edite `padroes-gerais.mdc`: troque os `<!-- AJUSTE -->` pela stack real (Laravel, pasta `site/`, etc.).
+Edite `padroes-stack.mdc`: troque os `<!-- PREENCHER -->` pela stack real. Só edite `padroes-gerais.mdc` se quiser mudar idioma ou Git Flow.
+
+Após a cópia, as rules no produto bastam — não dependem deste repositório.
 
 ### 0.6 Plan template
 
@@ -99,7 +104,7 @@ Edite `.specify/templates/plan-template.md` (Language, Dependencies, Storage, Te
 
 ### 0.7 Skill de integração (opcional)
 
-Só se houver API externa (PagBank, Stripe, …):
+Só se houver API externa:
 
 - Crie `.cursor/skills/<nome>/SKILL.md`
 - Description com “when to use”
@@ -110,7 +115,7 @@ Só se houver API externa (PagBank, Stripe, …):
 
 - [ ] `specify init` feito; skills Spec Kit ok
 - [ ] Constitution preenchida
-- [ ] Rules copiadas e `padroes-gerais` ajustado
+- [ ] Rules copiadas; `padroes-stack` preenchido
 - [ ] Plan template com a stack
 - [ ] (Opcional) skill de API externa
 
@@ -127,7 +132,7 @@ Só se houver API externa (PagBank, Stripe, …):
 5. Feche o texto (escopo, aceite, fora de escopo).
 6. Não implemente neste chat.
 
-**Texto bom tem:** quem; o quê o usuário faz/vê; persistência em linguagem de negócio; aceite testável; fora de escopo; “detalhe de API → skill X”.
+**Texto bom tem:** quem; o quê o usuário faz/vê; persistência em linguagem de negócio; aceite testável; fora de escopo; “detalhe de API → skill X” (se houver).
 
 Feche o chat de Plan (histórico grande = caro).
 
@@ -225,40 +230,31 @@ Não pare entre US. Não reexplore [X].
 
 ## Exemplo de texto para `/speckit-specify`
 
-(Feature real de validação PagBank PIX no admin — adaptável.)
+(Feature genérica — adapte ao seu domínio.)
 
 ```text
-Integrar PagBank (conta pessoa física) no admin da plataforma Salão Elite, para o administrador validar recebimento PIX após deploy em produção.
+Permitir que o usuário autenticado receba notificação por e-mail quando um pedido mudar para o status "enviado".
 
-Criar página de configuração PagBank no admin (/admin) com:
-- Credenciais por ambiente (sandbox e produção). Dados de credencial/API: skill pagbank-api.
-- Token persistido com segurança: mascarar na UI; não expor em logs nem nas respostas Inertia.
-- Seletor/ambiente ativo: a geração do PIX usa as credenciais do ambiente selecionado (obrigatório estar salvas antes de gerar).
+Quem: usuário dono do pedido (conta com e-mail verificado).
 
-Na mesma página:
-- Campos para gerar o PIX: CPF e nome do pagador (obrigatórios na tela). Demais dados de customer exigidos pela API: conforme skill pagbank-api (campos mínimos extras na tela ou valores de teste fixos definidos no plan — sem inventar fora da doc).
-- Ao criar a cobrança, persistir o CPF (e o nome) na cobrança; na UI mascarar CPF; não logar CPF/token em claro.
-- Gerar PIX fixo de R$ 1,00 via API de Pedidos (QR Code); exibir QR e copia-e-cola.
-- Região A — cobrança atual: a última gerada com sucesso (valor, ids PagBank, status, timestamps, CPF mascarado, nome). Status mínimos: pendente e pago.
-- Região B — notificações de webhook da cobrança atual.
-- Tempo real (sem F5): ao criar cobrança, Região A atualiza; ao chegar webhook, Região B e o status na Região A atualizam.
-- Erros da API/fluxo: mostrar a mensagem recebida na página.
-- Consulta/histórico: listar cobranças anteriores e as notificações de cada uma (a visão principal continua na cobrança atual).
+O quê:
+- Ao transição do pedido para "enviado", enfileirar o envio de um e-mail.
+- Conteúdo mínimo: número do pedido, data/hora do envio, link para acompanhar.
+- Se o e-mail falhar após retries definidos no plan, registrar falha auditável; não alterar o status do pedido.
+- Preferências: se o usuário desativou "e-mails de status de pedido", não enviar (e não enfileirar).
 
 Persistência:
-- Gerar PIX → gravar cobrança (valor, ids PagBank, status pendente, CPF, nome, timestamps).
-- Webhook → gravar notificação; atualizar cobrança vinculada de forma idempotente; notificar o admin em tempo real.
-
-Validação: apenas em produção após deploy (sem exigir teste de webhook em local).
+- Registrar tentativa/resultado do envio ligado ao pedido (sucesso, falha, timestamp).
+- Não duplicar e-mail para a mesma transição (idempotência por pedido + status).
 
 Critérios de aceite:
-- Admin salva credenciais do ambiente (token mascarado, sem vazamento).
-- Sem credencial do ambiente selecionado, não gera PIX (feedback claro).
-- Admin informa CPF e nome, gera PIX de R$ 1,00, vê QR/copia-e-cola; Região A mostra a cobrança atual em tempo real.
-- Webhook persiste notificação, atualiza cobrança (ex.: para pago) e a página atualiza Região B e status em tempo real.
-- Histórico permite consultar cobranças e notificações; principal = cobrança atual.
+- Pedido vai para "enviado" → usuário com preferência ativa recebe o e-mail com os campos mínimos.
+- Preferência desativada → nenhum e-mail enfileirado nem enviado.
+- Falha de provedor após retries → falha registrada; status do pedido permanece "enviado".
+- Mesma transição não gera segundo e-mail.
 
-Fora de escopo: mensalidade/assinatura, alterar salão, cartão/boleto, painel do salão, valor livre, teste de webhook em local.
+Fora de escopo: SMS/push, outros status, template visual rico, painel de marketing, alteração do fluxo de checkout.
+Detalhe de provedor de e-mail: skill email-provider (se existir no projeto).
 ```
 
 ---
